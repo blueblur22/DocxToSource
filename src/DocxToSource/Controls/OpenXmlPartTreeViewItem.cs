@@ -56,9 +56,9 @@ namespace DocxToSource.Controls
         /// <exception cref="ArgumentNullException">
         /// <paramref name="p"/> is <see langword="null"/>.
         /// </exception>
-        public OpenXmlPartTreeViewItem(IdPartPair p)
-            : base(p != null && p.OpenXmlPart != null && p.OpenXmlPart.Parts != null &&
-                  (p.OpenXmlPart.Parts.Any() || p.OpenXmlPart.RootElement != null))
+        public OpenXmlPartTreeViewItem(IdPartPair? p)
+            : base(p.HasValue && p.Value.OpenXmlPart != null && p.Value.OpenXmlPart.Parts != null &&
+                  (p.Value.OpenXmlPart.Parts.Any() || p.Value.OpenXmlPart.RootElement != null))
         {
             part = p ?? throw new ArgumentNullException(nameof(p));
         }

@@ -79,7 +79,7 @@ namespace DocxToSource
         private string _fileName;
 
         /// <summary>
-        /// Indicates whether or not to automatically generate source code when 
+        /// Indicates whether or not to automatically generate source code when
         /// selecting DOM nodes.
         /// </summary>
         private bool _generateSourceCode;
@@ -102,7 +102,7 @@ namespace DocxToSource
         private OpenXmlPackage _oPkg;
 
         /// <summary>
-        /// Holds the raw package used to stage the stream information for 
+        /// Holds the raw package used to stage the stream information for
         /// validation purposes.
         /// </summary>
         private Package _pkg;
@@ -245,7 +245,7 @@ namespace DocxToSource
         }
 
         /// <summary>
-        /// Indicates whether or not to automatically generate source code when 
+        /// Indicates whether or not to automatically generate source code when
         /// selecting DOM nodes.
         /// </summary>
         public bool GenerateSourceCode
@@ -421,7 +421,6 @@ namespace DocxToSource
         {
             if (_oPkg != null)
             {
-                _oPkg.Close();
                 _oPkg.Dispose();
                 _oPkg = null;
             }
