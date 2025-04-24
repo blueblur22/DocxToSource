@@ -88,7 +88,7 @@ namespace DocxToSource
         /// Indicates whether or not to enable syntax highlighting in the source code
         /// windows.
         /// </summary>
-        private bool _highlightSyntax;
+        private bool _highlightSyntax = true;
 
         /// <summary>
         /// Indicates whether or not the selected item represents an
