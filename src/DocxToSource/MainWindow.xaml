@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:source="http://icsharpcode.net/sharpdevelop/avalonedit"
     xmlns:tree="clr-namespace:DocxToSource.Controls"
+    x:Name="MyMainWindow"
     Title="Docx To Source"
     Width="1600"
     Height="1000"
@@ -35,12 +36,117 @@
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
         </Style>
-        <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="TreeViewItem" />
         <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="tree:OpenXmlTreeViewItem" />
         <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="tree:OpenXmlElementTreeViewItem" />
         <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="tree:OpenXmlPartTreeViewItem" />
         <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="tree:OpenXmlPackageTreeViewItem" />
         <Style BasedOn="{StaticResource {x:Type TreeView}}" TargetType="tree:OpenXmlTreeView" />
+        <Style
+            x:Key="DropMenuCheckboxStyle"
+            BasedOn="{StaticResource {x:Type CheckBox}}"
+            TargetType="CheckBox">
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style BasedOn="{StaticResource {x:Type source:SearchPanel}}" TargetType="source:SearchPanel">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Border
+                            Margin="0,0,10,0"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Background="{DynamicResource WindowBackground}"
+                            BorderThickness="1"
+                            CornerRadius="7"
+                            Cursor="Arrow"
+                            UseLayoutRounding="True">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox
+                                    Name="PART_searchTextBox"
+                                    Width="250"
+                                    Margin="3"
+                                    Focusable="True"
+                                    FontFamily="Segou UI">
+                                    <TextBox.Text>
+                                        <Binding
+                                            Path="SearchPattern"
+                                            RelativeSource="{RelativeSource TemplatedParent}"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <ExceptionValidationRule />
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <source:DropDownButton
+                                    Width="18"
+                                    Height="24"
+                                    VerticalAlignment="Center"
+                                    Foreground="{x:Static SystemColors.MenuBrush}">
+                                    <source:DropDownButton.DropDownContent>
+                                        <Popup Name="PART_dropdownPopup" StaysOpen="False">
+                                            <Border
+                                                Padding="1"
+                                                Background="{DynamicResource WindowBackground}"
+                                                BorderBrush="{DynamicResource TextBoxBorderBrush}"
+                                                BorderThickness="1">
+                                                <StackPanel>
+                                                    <CheckBox
+                                                        Margin="3"
+                                                        Content="Match Case"
+                                                        IsChecked="{Binding MatchCase, RelativeSource={RelativeSource TemplatedParent}}"
+                                                        Style="{DynamicResource DropMenuCheckboxStyle}" />
+                                                    <CheckBox
+                                                        Margin="3"
+                                                        Content="Match Whole Words"
+                                                        IsChecked="{Binding WholeWords, RelativeSource={RelativeSource TemplatedParent}}"
+                                                        Style="{DynamicResource DropMenuCheckboxStyle}" />
+                                                    <CheckBox
+                                                        Margin="3"
+                                                        Content="Use Regular Expressions"
+                                                        IsChecked="{Binding UseRegex, RelativeSource={RelativeSource TemplatedParent}}"
+                                                        Style="{DynamicResource DropMenuCheckboxStyle}" />
+                                                </StackPanel>
+                                            </Border>
+                                        </Popup>
+                                    </source:DropDownButton.DropDownContent>
+                                </source:DropDownButton>
+                                <Button
+                                    Width="24"
+                                    Height="24"
+                                    Margin="1,3"
+                                    Padding="0"
+                                    VerticalAlignment="Center"
+                                    Command="source:SearchCommands.FindPrevious"
+                                    Content="&#xE76B;"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                                <Button
+                                    Width="24"
+                                    Height="24"
+                                    Margin="1,3"
+                                    Padding="0"
+                                    VerticalAlignment="Center"
+                                    Command="source:SearchCommands.FindNext"
+                                    Content="&#xE76C;"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                                <Button
+                                    Width="24"
+                                    Height="24"
+                                    Margin="5,0,4,0"
+                                    Padding="0"
+                                    VerticalAlignment="Center"
+                                    Command="source:SearchCommands.CloseSearchPanel"
+                                    Content="&#xE894;"
+                                    Focusable="False"
+                                    FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
