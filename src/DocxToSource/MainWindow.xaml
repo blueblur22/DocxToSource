@@ -1,37 +1,25 @@
-﻿<Window
-    x:Class="DocxToSource.MainWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:DocxToSource"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:source="http://icsharpcode.net/sharpdevelop/avalonedit"
-    xmlns:tree="clr-namespace:DocxToSource.Controls"
-    x:Name="MyMainWindow"
-    Title="Docx To Source"
-    Width="1600"
-    Height="1000"
-    WindowStartupLocation="CenterScreen"
-    mc:Ignorable="d">
+﻿<Window x:Class="DocxToSource.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:source="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:local="clr-namespace:DocxToSource"
+        xmlns:tree="clr-namespace:DocxToSource.Controls"
+        mc:Ignorable="d"
+        x:Name="MyMainWindow"
+        Title="Docx To Source" Width="1600" Height="1000"
+        WindowStartupLocation="CenterScreen">
     <Window.DataContext>
-        <local:MainWindowModel />
+        <local:MainWindowModel/>
     </Window.DataContext>
     <Window.InputBindings>
-        <KeyBinding
-            Key="Q"
-            Command="{Binding QuitCommand}"
-            Modifiers="Ctrl" />
-        <KeyBinding
-            Key="O"
-            Command="{Binding OpenCommand}"
-            Modifiers="Ctrl" />
-        <KeyBinding
-            Key="C"
-            Command="{Binding CloseCommand}"
-            Modifiers="Ctrl" />
+        <KeyBinding Key="Q" Modifiers="Ctrl" Command="{Binding QuitCommand}"/>
+        <KeyBinding Key="O" Modifiers="Ctrl" Command="{Binding OpenCommand}"/>
+        <KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding CloseCommand}"/>
     </Window.InputBindings>
     <Window.Resources>
-        <Style BasedOn="{StaticResource {x:Type GridSplitter}}" TargetType="{x:Type GridSplitter}">
+        <Style TargetType="{x:Type GridSplitter}" BasedOn="{StaticResource {x:Type GridSplitter}}">
             <Setter Property="ShowsPreview" Value="True" />
             <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -41,10 +29,7 @@
         <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="tree:OpenXmlPartTreeViewItem" />
         <Style BasedOn="{StaticResource {x:Type TreeViewItem}}" TargetType="tree:OpenXmlPackageTreeViewItem" />
         <Style BasedOn="{StaticResource {x:Type TreeView}}" TargetType="tree:OpenXmlTreeView" />
-        <Style
-            x:Key="DropMenuCheckboxStyle"
-            BasedOn="{StaticResource {x:Type CheckBox}}"
-            TargetType="CheckBox">
+        <Style x:Key="DropMenuCheckboxStyle" BasedOn="{StaticResource {x:Type CheckBox}}" TargetType="CheckBox">
             <Setter Property="FontFamily" Value="Segoe UI" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="VerticalAlignment" Value="Center" />
@@ -53,94 +38,33 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate>
-                        <Border
-                            Margin="0,0,10,0"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            Background="{DynamicResource WindowBackground}"
-                            BorderThickness="1"
-                            CornerRadius="7"
-                            Cursor="Arrow"
-                            UseLayoutRounding="True">
+                        <Border Margin="0,0,10,0" HorizontalAlignment="Right" VerticalAlignment="Top" Background="{DynamicResource WindowBackground}" BorderThickness="1" CornerRadius="7" Cursor="Arrow" UseLayoutRounding="True">
                             <StackPanel Orientation="Horizontal">
-                                <TextBox
-                                    Name="PART_searchTextBox"
-                                    Width="250"
-                                    Margin="3"
-                                    Focusable="True"
-                                    FontFamily="Segou UI">
+                                <TextBox Name="PART_searchTextBox" Width="250" Margin="3" Focusable="True" FontFamily="Segou UI">
                                     <TextBox.Text>
-                                        <Binding
-                                            Path="SearchPattern"
-                                            RelativeSource="{RelativeSource TemplatedParent}"
-                                            UpdateSourceTrigger="PropertyChanged">
+                                        <Binding Path="SearchPattern" RelativeSource="{RelativeSource TemplatedParent}" UpdateSourceTrigger="PropertyChanged">
                                             <Binding.ValidationRules>
                                                 <ExceptionValidationRule />
                                             </Binding.ValidationRules>
                                         </Binding>
                                     </TextBox.Text>
                                 </TextBox>
-                                <source:DropDownButton
-                                    Width="18"
-                                    Height="24"
-                                    VerticalAlignment="Center"
-                                    Foreground="{x:Static SystemColors.MenuBrush}">
+                                <source:DropDownButton Width="18" Height="24" VerticalAlignment="Center" Foreground="{x:Static SystemColors.MenuBrush}">
                                     <source:DropDownButton.DropDownContent>
                                         <Popup Name="PART_dropdownPopup" StaysOpen="False">
-                                            <Border
-                                                Padding="1"
-                                                Background="{DynamicResource WindowBackground}"
-                                                BorderBrush="{DynamicResource TextBoxBorderBrush}"
-                                                BorderThickness="1">
+                                            <Border Padding="1" Background="{DynamicResource WindowBackground}" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="1">
                                                 <StackPanel>
-                                                    <CheckBox
-                                                        Margin="3"
-                                                        Content="Match Case"
-                                                        IsChecked="{Binding MatchCase, RelativeSource={RelativeSource TemplatedParent}}"
-                                                        Style="{DynamicResource DropMenuCheckboxStyle}" />
-                                                    <CheckBox
-                                                        Margin="3"
-                                                        Content="Match Whole Words"
-                                                        IsChecked="{Binding WholeWords, RelativeSource={RelativeSource TemplatedParent}}"
-                                                        Style="{DynamicResource DropMenuCheckboxStyle}" />
-                                                    <CheckBox
-                                                        Margin="3"
-                                                        Content="Use Regular Expressions"
-                                                        IsChecked="{Binding UseRegex, RelativeSource={RelativeSource TemplatedParent}}"
-                                                        Style="{DynamicResource DropMenuCheckboxStyle}" />
+                                                    <CheckBox Margin="3" Content="Match Case" IsChecked="{Binding MatchCase, RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource DropMenuCheckboxStyle}" />
+                                                    <CheckBox Margin="3" Content="Match Whole Words" IsChecked="{Binding WholeWords, RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource DropMenuCheckboxStyle}" />
+                                                    <CheckBox Margin="3" Content="Use Regular Expressions" IsChecked="{Binding UseRegex, RelativeSource={RelativeSource TemplatedParent}}" Style="{DynamicResource DropMenuCheckboxStyle}" />
                                                 </StackPanel>
                                             </Border>
                                         </Popup>
                                     </source:DropDownButton.DropDownContent>
                                 </source:DropDownButton>
-                                <Button
-                                    Width="24"
-                                    Height="24"
-                                    Margin="1,3"
-                                    Padding="0"
-                                    VerticalAlignment="Center"
-                                    Command="source:SearchCommands.FindPrevious"
-                                    Content="&#xE76B;"
-                                    FontFamily="{StaticResource SymbolThemeFontFamily}" />
-                                <Button
-                                    Width="24"
-                                    Height="24"
-                                    Margin="1,3"
-                                    Padding="0"
-                                    VerticalAlignment="Center"
-                                    Command="source:SearchCommands.FindNext"
-                                    Content="&#xE76C;"
-                                    FontFamily="{StaticResource SymbolThemeFontFamily}" />
-                                <Button
-                                    Width="24"
-                                    Height="24"
-                                    Margin="5,0,4,0"
-                                    Padding="0"
-                                    VerticalAlignment="Center"
-                                    Command="source:SearchCommands.CloseSearchPanel"
-                                    Content="&#xE894;"
-                                    Focusable="False"
-                                    FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                                <Button Width="24" Height="24" Margin="1,3" Padding="0" VerticalAlignment="Center" Command="source:SearchCommands.FindPrevious" Content="&#xE76B;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                                <Button Width="24" Height="24" Margin="1,3" Padding="0" VerticalAlignment="Center" Command="source:SearchCommands.FindNext" Content="&#xE76C;" FontFamily="{StaticResource SymbolThemeFontFamily}" />
+                                <Button Width="24" Height="24" Margin="5,0,4,0" Padding="0" VerticalAlignment="Center" Command="source:SearchCommands.CloseSearchPanel" Content="&#xE894;" Focusable="False" FontFamily="{StaticResource SymbolThemeFontFamily}" />
                             </StackPanel>
                         </Border>
                     </ControlTemplate>
@@ -159,59 +83,32 @@
         </Grid.ColumnDefinitions>
         <Menu Height="Auto">
             <MenuItem Header="_File">
-                <MenuItem
-                    Command="{Binding OpenCommand}"
-                    Header="_Open"
-                    InputGestureText="Ctrl+O" />
-                <MenuItem
-                    Command="{Binding CloseCommand}"
-                    Header="_Close"
-                    InputGestureText="Ctrl+C" />
-                <Separator />
-                <MenuItem
-                    Command="{Binding QuitCommand}"
-                    Header="_Quit"
-                    InputGestureText="Ctrl+Q" />
+                <MenuItem Header="_Open" InputGestureText="Ctrl+O" Command="{Binding OpenCommand}"/>
+                <MenuItem Header="_Close" InputGestureText="Ctrl+C" Command="{Binding CloseCommand}"/>
+                <Separator/>
+                <MenuItem Header="_Quit" InputGestureText="Ctrl+Q" Command="{Binding QuitCommand}"/>
             </MenuItem>
             <MenuItem Header="_Source Code">
-                <MenuItem
-                    Header="_Generate Source Code"
-                    IsCheckable="True"
-                    IsChecked="{Binding GenerateSourceCode}" />
-                <Separator />
-                <MenuItem
-                    Header="_Word Wrap"
-                    IsCheckable="True"
-                    IsChecked="{Binding WordWrap}" />
-                <MenuItem
-                    Header="Syntax _Highlighting"
-                    IsCheckable="True"
-                    IsChecked="{Binding HighlightSyntax}" />
+                <MenuItem Header="_Generate Source Code" IsCheckable="True" IsChecked="{Binding GenerateSourceCode}"/>
+                <Separator/>
+                <MenuItem Header="_Word Wrap" IsCheckable="True" IsChecked="{Binding WordWrap}"/>
+                <MenuItem Header="Syntax _Highlighting" IsCheckable="True" IsChecked="{Binding HighlightSyntax}" />
             </MenuItem>
         </Menu>
-        <ComboBox
-            Grid.Column="1"
-            Width="150"
-            Margin="0,0,10,0"
-            HorizontalAlignment="Right"
-            ItemsSource="{Binding LanguageDefinitions}"
-            SelectedItem="{Binding SelectedLanguage}" />
+        <ComboBox Grid.Column="1" Width="150" Margin="0,0,10,0" HorizontalAlignment="Right" ItemsSource="{Binding LanguageDefinitions}" SelectedItem="{Binding SelectedLanguage}" />
         <Grid Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="5" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
             <tree:OpenXmlTreeView
                 Grid.Column="0"
-                d:ItemsSource="{d:SampleData ItemCount=5}"
                 BorderThickness="0"
+                d:ItemsSource="{d:SampleData ItemCount=5}"
                 ItemsSource="{Binding Path=TreeData}"
-                SelectedTreeItem="{Binding Path=SelectedItem, Mode=TwoWay}" />
-            <GridSplitter
-                Grid.Column="1"
-                Width="5"
-                ResizeDirection="Columns" />
+                SelectedTreeItem="{Binding Path=SelectedItem, Mode=TwoWay}"/>
+            <GridSplitter ResizeDirection="Columns" Width="5" Grid.Column="1" />
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition>
@@ -219,10 +116,10 @@
                             <Style TargetType="RowDefinition">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsOpenXmlElement}" Value="True">
-                                        <Setter Property="Height" Value="*" />
+                                        <Setter Property="Height" Value="*"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding IsOpenXmlElement}" Value="False">
-                                        <Setter Property="Height" Value="0" />
+                                        <Setter Property="Height" Value="0"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -233,43 +130,30 @@
                             <Style TargetType="{x:Type RowDefinition}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsOpenXmlElement}" Value="True">
-                                        <Setter Property="Height" Value="5" />
+                                        <Setter Property="Height" Value="5"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding IsOpenXmlElement}" Value="False">
-                                        <Setter Property="Height" Value="0" />
+                                        <Setter Property="Height" Value="0"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </RowDefinition.Style>
                     </RowDefinition>
-                    <RowDefinition />
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Grid.Resources>
                     <Style BasedOn="{StaticResource {x:Type source:TextEditor}}" TargetType="{x:Type source:TextEditor}">
-                        <Setter Property="FontFamily" Value="Consolas" />
-                        <Setter Property="FontSize" Value="12" />
-                        <Setter Property="ShowLineNumbers" Value="True" />
-                        <Setter Property="WordWrap" Value="{Binding WordWrap}" />
-                        <Setter Property="BorderThickness" Value="0" />
-                        <Setter Property="IsReadOnly" Value="True" />
+                        <Setter Property="FontFamily" Value="Consolas"/>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="ShowLineNumbers" Value="True"/>
+                        <Setter Property="WordWrap" Value="{Binding WordWrap}"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Setter Property="IsReadOnly" Value="True"/>
                     </Style>
                 </Grid.Resources>
-                <source:TextEditor
-                    x:Name="xXmlSourceEditor"
-                    Grid.Row="0"
-                    Background="WhiteSmoke"
-                    Document="{Binding XmlSourceDocument}"
-                    SyntaxHighlighting="{Binding XmlSourceDocumentSyntax}" />
-                <GridSplitter
-                    Grid.Row="1"
-                    Height="5"
-                    ResizeDirection="Rows" />
-                <source:TextEditor
-                    x:Name="xCodeSourceEditor"
-                    Grid.Row="2"
-                    Background="FloralWhite"
-                    Document="{Binding CodeDocument}"
-                    SyntaxHighlighting="{Binding CodeDocumentSyntax}" />
+                <source:TextEditor x:Name="xXmlSourceEditor" Grid.Row="0" Background="WhiteSmoke" Document ="{Binding XmlSourceDocument}" SyntaxHighlighting="{Binding XmlSourceDocumentSyntax}"/>
+                <GridSplitter ResizeDirection="Rows" Height="5" Grid.Row="1"/>
+                <source:TextEditor x:Name="xCodeSourceEditor" Grid.Row="2" Background="FloralWhite" Document="{Binding CodeDocument}" SyntaxHighlighting="{Binding CodeDocumentSyntax}"/>
             </Grid>
         </Grid>
     </Grid>
